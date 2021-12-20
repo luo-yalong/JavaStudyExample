@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mp_demo?serverTimezone=UTC
+    username: root
+    password: Lyl123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      minEvictableIdleTimeMillis: 300000
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+
+      #配置监控统计拦截的filters，stat：监控统计、log4j：日志记录、wall：防御sql注入
+      #如果允许报错，java.lang.ClassNotFoundException: org.apache.Log4j.Properity
+      #则导入log4j 依赖就行
+      filters: stat,wall
+      maxPoolPreparedStatementPerConnectionSize: 20
+      useGlobalDataSourceStat: true
+
+      # 监控页面的用户名和密码，以及页面地址
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+        enabled: true
+        url-pattern: /druid/*
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+  mapper-locations: classpath*:/mapper/*.xml
