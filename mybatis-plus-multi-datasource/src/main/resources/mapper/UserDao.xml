@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.mp_multi_datasource.dao.UserDao">
+
+    <sql id="insert_column">
+        name, sex, age, created, modify, version
+    </sql>
+
+    <sql id="all_column">
+        id ,
+        <include refid="insert_column"/>
+    </sql>
+
+    <resultMap type="com.lyl.mp_multi_datasource.entity.User" id="UserMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="created" column="created"/>
+        <result property="modify" column="modify"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mp_demo.user(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.sex}, #{entity.age}, #{entity.created}, #{entity.modify}, #{entity.version})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mp_demo.user(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.sex}, #{entity.age}, #{entity.created}, #{entity.modify}, #{entity.version})
+        </foreach>
+        on duplicate key update
+        name = values(name) , sex = values(sex) , age = values(age) , created = values(created) , modify =
+        values(modify) , version = values(version)
+    </insert>
+
+</mapper>
