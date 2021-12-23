@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.mybatisplus_elasticsearch.dao.UserDao">
+    
+    <sql id="insert_column">
+        name, sex    
+    </sql>
+    
+    <sql id="all_column">
+        id ,<include refid="insert_column"/>
+    </sql>
+    
+    <resultMap type="com.lyl.mybatisplus_elasticsearch.entity.User" id="UserMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into es.user(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.sex})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into es.user(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.sex})
+        </foreach>
+        on duplicate key update
+         name = values(name) , sex = values(sex)          
+    </insert>
+
+</mapper>

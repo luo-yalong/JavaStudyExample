@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.mybatisplus_elasticsearch.dao.NbaPlayerDao">
+    
+    <sql id="insert_column">
+        countryEn, teamName, birthDay, country, teamCityEn, code, displayAffiliation, displayName, schoolType, teamConference, teamConferenceEn, weight, teamCity, playYear, jerseyNo, teamNameEn, draft, displayNameEn, birthDayStr, heightValue, position, age, playerId    
+    </sql>
+    
+    <sql id="all_column">
+        id ,<include refid="insert_column"/>
+    </sql>
+    
+    <resultMap type="com.lyl.mybatisplus_elasticsearch.entity.NbaPlayer" id="NbaPlayerMap">
+        <result property="id" column="id"/>
+        <result property="countryEn" column="countryEn"/>
+        <result property="teamName" column="teamName"/>
+        <result property="birthDay" column="birthDay"/>
+        <result property="country" column="country"/>
+        <result property="teamCityEn" column="teamCityEn"/>
+        <result property="code" column="code"/>
+        <result property="displayAffiliation" column="displayAffiliation"/>
+        <result property="displayName" column="displayName"/>
+        <result property="schoolType" column="schoolType"/>
+        <result property="teamConference" column="teamConference"/>
+        <result property="teamConferenceEn" column="teamConferenceEn"/>
+        <result property="weight" column="weight"/>
+        <result property="teamCity" column="teamCity"/>
+        <result property="playYear" column="playYear"/>
+        <result property="jerseyNo" column="jerseyNo"/>
+        <result property="teamNameEn" column="teamNameEn"/>
+        <result property="draft" column="draft"/>
+        <result property="displayNameEn" column="displayNameEn"/>
+        <result property="birthDayStr" column="birthDayStr"/>
+        <result property="heightValue" column="heightValue"/>
+        <result property="position" column="position"/>
+        <result property="age" column="age"/>
+        <result property="playerId" column="playerId"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into es.nba_player(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.countryen}, #{entity.teamname}, #{entity.birthday}, #{entity.country}, #{entity.teamcityen}, #{entity.code}, #{entity.displayaffiliation}, #{entity.displayname}, #{entity.schooltype}, #{entity.teamconference}, #{entity.teamconferenceen}, #{entity.weight}, #{entity.teamcity}, #{entity.playyear}, #{entity.jerseyno}, #{entity.teamnameen}, #{entity.draft}, #{entity.displaynameen}, #{entity.birthdaystr}, #{entity.heightvalue}, #{entity.position}, #{entity.age}, #{entity.playerid})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into es.nba_player(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.countryen}, #{entity.teamname}, #{entity.birthday}, #{entity.country}, #{entity.teamcityen}, #{entity.code}, #{entity.displayaffiliation}, #{entity.displayname}, #{entity.schooltype}, #{entity.teamconference}, #{entity.teamconferenceen}, #{entity.weight}, #{entity.teamcity}, #{entity.playyear}, #{entity.jerseyno}, #{entity.teamnameen}, #{entity.draft}, #{entity.displaynameen}, #{entity.birthdaystr}, #{entity.heightvalue}, #{entity.position}, #{entity.age}, #{entity.playerid})
+        </foreach>
+        on duplicate key update
+         countryEn = values(countryEn) , teamName = values(teamName) , birthDay = values(birthDay) , country = values(country) , teamCityEn = values(teamCityEn) , code = values(code) , displayAffiliation = values(displayAffiliation) , displayName = values(displayName) , schoolType = values(schoolType) , teamConference = values(teamConference) , teamConferenceEn = values(teamConferenceEn) , weight = values(weight) , teamCity = values(teamCity) , playYear = values(playYear) , jerseyNo = values(jerseyNo) , teamNameEn = values(teamNameEn) , draft = values(draft) , displayNameEn = values(displayNameEn) , birthDayStr = values(birthDayStr) , heightValue = values(heightValue) , position = values(position) , age = values(age) , playerId = values(playerId)          
+    </insert>
+
+</mapper>
