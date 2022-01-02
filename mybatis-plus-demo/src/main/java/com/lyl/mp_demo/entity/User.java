@@ -1,13 +1,13 @@
 package com.lyl.mp_demo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * (User)表实体类
@@ -55,7 +55,21 @@ public class User extends Model<User> implements Serializable {
     /**
      * 版本
      */
+    @Version
+    @TableField(fill = FieldFill.INSERT)
     private Integer version;
+
+    @TableField(fill = FieldFill.INSERT)
+    private String createTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private String updateTime;
+
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer deleted;
 
 }
 
