@@ -1,21 +1,22 @@
 package com.lyl.mp_demo;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.date.LocalDateTimeUtil;
 import com.lyl.mp_demo.dao.UserDao;
 import com.lyl.mp_demo.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @SpringBootTest
 class MybatisPlusDemoApplicationTests {
 
     @Autowired
     private UserDao userDao;
+
+    @Test
+    void test1() {
+        System.out.println("测试乱码");
+    }
 
     @Test
     void testQueryAll(){
