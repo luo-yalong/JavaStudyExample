@@ -16,12 +16,12 @@ public enum ReturnCode {
     /**
      * code
      */
-    private int code;
+    private final int code;
 
     /**
      * 消息提示
      */
-    private String msg;
+    private final String msg;
 
     ReturnCode(int code, String msg) {
         this.code = code;

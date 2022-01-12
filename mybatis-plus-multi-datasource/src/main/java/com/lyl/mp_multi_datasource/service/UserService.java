@@ -18,12 +18,12 @@ public interface UserService extends IService<User> {
      * master 查询
      * @return
      */
-    public List<User> listOfMaster();
+    List<User> listOfMaster();
 
     /**
      * slave 数据库查询
      * @return
      */
-    public List<User> listOfSlave();
+    List<User> listOfSlave();
 }
 

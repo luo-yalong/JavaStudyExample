@@ -11,5 +11,11 @@ import com.lyl.ms.entity.Stock;
  */
 public interface StockDao extends BaseMapper<Stock> {
 
+    /**
+     * 销售商品
+     * @param stock 商品信息
+     * @return 影响的行数
+     */
+    int sale(Stock stock);
 }
 
