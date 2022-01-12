@@ -13,6 +13,12 @@ class MybatisPlusDemoApplicationTests {
     @Autowired
     private UserDao userDao;
 
+
+    @Test
+    void testBatchInsert() {
+
+    }
+
     @Test
     void test1() {
         System.out.println("测试乱码");

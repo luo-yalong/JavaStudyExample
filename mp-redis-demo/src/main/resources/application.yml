@@ -1,0 +1,24 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    database: 0
+    host: 121.89.199.231
+    password: 123456
+    lettuce:
+      pool:
+        max-active: 100
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1
+
+  datasource:
+    druid:
+      url: jdbc:mysql://121.89.199.231:3306/mp_demo?serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: Lyl123456
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:/mapper/*.xml
