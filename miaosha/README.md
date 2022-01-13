@@ -178,3 +178,4 @@ public String killToken(Integer id){
 ### 限时抢购的实现
 
 ​		使用`redis`来记录秒杀商品的时间，对秒杀过期的请求进行过期处理
+
