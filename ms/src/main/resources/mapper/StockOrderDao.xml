@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.ms.dao.StockOrderDao">
+    
+    <sql id="insert_column">
+        sid, name, create_time    
+    </sql>
+    
+    <sql id="all_column">
+        id ,<include refid="insert_column"/>
+    </sql>
+    
+    <resultMap type="com.lyl.ms.entity.StockOrder" id="StockOrderMap">
+        <result property="id" column="id"/>
+        <result property="sid" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="create_time" column="create_time"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms.stock_order(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sid}, #{entity.name}, #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms.stock_order(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sid}, #{entity.name}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+         sid = values(sid) , name = values(name) , create_time = values(create_time)          
+    </insert>
+
+</mapper>

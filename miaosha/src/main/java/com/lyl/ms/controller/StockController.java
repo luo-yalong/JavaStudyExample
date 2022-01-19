@@ -16,15 +16,15 @@ public class StockController {
     private OrderService orderService;
 
     @GetMapping("/kill")
-    public String kill(Integer id){
-        System.out.println("秒杀商品的id = " + id);
+    public String kill(Integer id) {
         //处理秒杀业务逻辑
         try {
-            int orderId = orderService.kill(id);
-            log.info("秒杀成功：订单ID = " + orderId);
-            return "秒杀成功：订单ID = " + orderId;
+                int orderId = orderService.kill(id);
+                log.info("秒杀成功：订单ID = " + orderId);
+                return "秒杀成功：订单ID = " + orderId;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error("秒杀:{}", e.getMessage());
             return e.getMessage();
         }
     }

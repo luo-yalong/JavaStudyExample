@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.ms.dao.StockDao">
+    
+    <sql id="insert_column">
+        name, count, sale, version    
+    </sql>
+    
+    <sql id="all_column">
+        id ,<include refid="insert_column"/>
+    </sql>
+    
+    <resultMap type="com.lyl.ms.entity.Stock" id="StockMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="count" column="count"/>
+        <result property="sale" column="sale"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+    <update id="sale">
+        update stock set sale = sale + 1 where id = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms.stock(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.count}, #{entity.sale}, #{entity.version})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms.stock(<include refid="insert_column"/>)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.count}, #{entity.sale}, #{entity.version})
+        </foreach>
+        on duplicate key update
+         name = values(name) , count = values(count) , sale = values(sale) , version = values(version)          
+    </insert>
+
+</mapper>

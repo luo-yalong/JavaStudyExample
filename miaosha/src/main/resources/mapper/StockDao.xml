@@ -3,4 +3,8 @@
 <mapper namespace="com.lyl.ms.dao.StockDao">
 
 
+    <update id="saleStock">
+        update stock set sale = sale + 1 , version = version + 1
+        where id = #{id} and version = #{version}
+    </update>
 </mapper>
