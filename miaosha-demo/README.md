@@ -1659,8 +1659,8 @@ WHERE
 
 ## 7. 后语
 
-​		接口秒杀还有很多的知识点，以上仅仅是用作学习用，源码和笔记会放在 GitHub上面，如果看过之后，觉得OK的话，别忘了 `star` 哦。
-
+​		接口秒杀还有很多的知识点，以上仅仅是用作学习用，源码和笔记会放在 [GitHub](https://github.com/luo-yalong/JavaStudyExample/tree/master/miaosha-demo) 上面，如果看过之后，觉得OK的话，别忘了 `star` 哦。
+        
 
 
 
